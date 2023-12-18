@@ -377,6 +377,7 @@ def main():
             e=os.getenv(k)
             if e:
                 credentials[k]=e
+            print(f"Env: {k}={e}")
 
     # mqtt client and publish credentials/config
     mqtt.start(credentials)
