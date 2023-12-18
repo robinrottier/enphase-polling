@@ -1,0 +1,12 @@
+services:
+  app:
+    image: enphase-envoy-polling-to-mqtt
+    environment:
+      - enphase_username=
+      - enphase_password=
+      - gateway_host=https://envoy
+      - gateway_serial_number=123456789012
+      - mqtt_broker=mqtt
+      - mqtt_port=1883
+      - mqtt_username=
+      - mqtt_password=
