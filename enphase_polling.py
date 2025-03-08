@@ -388,17 +388,18 @@ def main():
 
     # and "local" file overrides that also
     try:
-        with open('configuration/local_credentials.json', mode='r', encoding='utf-8') as local_file:
-            local_credentials = json.load(local_file)
-            for k in local_credentials:
-                e=os.getenv(k)
-                if e:
-                    credentials[k]=e
-                    print(f"Env:  {k}={e}")
-                else:
-                    credentials[k]=local_credentials[k]
-                    print(f"Local: {k}={credentials[k]}")
-    finally:
+        if os.path.exists('configuration/local_credentials.json'):
+            with open('configuration/local_credentials.json', mode='r', encoding='utf-8') as local_file:
+                local_credentials = json.load(local_file)
+                for k in local_credentials:
+                    e=os.getenv(k)
+                    if e:
+                        credentials[k]=e
+                        print(f"Env:  {k}={e}")
+                    else:
+                        credentials[k]=local_credentials[k]
+                        print(f"Local: {k}={credentials[k]}")
+    except:
         pass
 
     # mqtt client and publish credentials/config
