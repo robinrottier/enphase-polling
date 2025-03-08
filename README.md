@@ -31,3 +31,13 @@ services:
       - mqtt_password=
 ```
 
+
+Publishing to docker
+May need to command line login to docker first?
+...
+docker build . -t enphase-polling
+docker tag enphase-polling robinrottier/enphase-polling
+docker push robinrottier/enphase-polling
+```
+
+BUT also built a new release on github (0.2) and that seems to have build new docker image...not sure how!

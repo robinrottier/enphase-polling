@@ -9,6 +9,7 @@ ENV enphase_username=your_enphase_username
 ENV enphase_password=your_enphase_password
 ENV gateway_host=https://envoy
 ENV gateway_serial_number=123456789012
+ENV gateway_trust=true
 ENV mqtt_broker=mqtt
 ENV mqtt_port=1883
 ENV mqtt_clientid=envoypoll
