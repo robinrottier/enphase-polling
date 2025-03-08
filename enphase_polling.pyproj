@@ -12,6 +12,7 @@
     <OutputPath>.</OutputPath>
     <Name>enphase_polling</Name>
     <RootNamespace>enphase-envoy-polling-to-mqtt</RootNamespace>
+    <SuppressEnvironmentCreationPrompt>True</SuppressEnvironmentCreationPrompt>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>

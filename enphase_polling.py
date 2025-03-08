@@ -380,6 +380,7 @@ def main():
             print(f"Env: {k}={e}")
 
     # mqtt client and publish credentials/config
+    print("Starting mqtt")
     mqtt.start(credentials)
     mqtt.publish_time("poll/initialized")
     mqtt.publish_obj("poll/credentials", credentials)

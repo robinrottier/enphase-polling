@@ -1,6 +1,6 @@
 services:
   app:
-    image: enphase-envoy-polling-to-mqtt
+    image: enphase-polling
     environment:
       - enphase_username=
       - enphase_password=
