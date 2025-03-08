@@ -28,6 +28,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="configuration\local_credentials.json" />
     <Content Include="configuration\credentials.json">
       <SubType>Code</SubType>
     </Content>

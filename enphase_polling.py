@@ -120,7 +120,7 @@ def get_secure_gateway_session(credentials):
                 credentials['gateway_token'] = authentication.get_token_for_uncommissioned_gateway()
 
             # Update the file to include the modified token.
-            with open('configuration/credentials.json', mode='w', encoding='utf-8') as json_file:
+            with open('configuration/local_credentials.json', mode='w', encoding='utf-8') as json_file:
                 json.dump(credentials, json_file, indent=4)
         else:
             # Let the user know why the program is exiting.
@@ -130,8 +130,13 @@ def get_secure_gateway_session(credentials):
     host = credentials.get('gateway_host')
 
     # Download and store the certificate from the gateway so all future requests are secure.
-    if not os.path.exists('configuration/gateway.cer'):
-        Gateway.trust_gateway(host)
+    if credentials.get('gateway_trust') == "false":
+        # dotn trust gateway ssl
+        if os.path.exists('configuration/gateway.cer'):
+            os.remove('configuration/gateway.cer')
+    else:
+       if not os.path.exists('configuration/gateway.cer'):
+           Gateway.trust_gateway(host)
 
     # Instantiate the Gateway API wrapper (with the default library hostname if None provided).
     gateway = Gateway(host)
@@ -377,7 +382,24 @@ def main():
             e=os.getenv(k)
             if e:
                 credentials[k]=e
-            print(f"Env: {k}={e}")
+                print(f"Env:  {k}={e}")
+            else:
+                print(f"Cred: {k}={credentials[k]}")
+
+    # and "local" file overrides that also
+    try:
+        with open('configuration/local_credentials.json', mode='r', encoding='utf-8') as local_file:
+            local_credentials = json.load(local_file)
+            for k in local_credentials:
+                e=os.getenv(k)
+                if e:
+                    credentials[k]=e
+                    print(f"Env:  {k}={e}")
+                else:
+                    credentials[k]=local_credentials[k]
+                    print(f"Local: {k}={credentials[k]}")
+    finally:
+        pass
 
     # mqtt client and publish credentials/config
     print("Starting mqtt")
