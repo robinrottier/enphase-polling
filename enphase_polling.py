@@ -37,7 +37,9 @@ import time      # We check whether we are running on Windows® or not.
 
 # paha mqtt client for publishing to some broker
 # if it fails: pip install paho.mqtt
-import paho.mqtt.client as paho
+
+import paho.mqtt as mqttLib
+import paho.mqtt.client as mqttClient
 
 # All the shared Enphase® functions are in these packages.
 from enphase_api.cloud.authentication import Authentication
@@ -185,8 +187,10 @@ class MyMqttClient:
             self.publish(topic, obj)
 
     def start(self, credentials):
-
-        self.mqtt_client = paho.Client(credentials['mqtt_clientid'])
+        if mqttLib.__version__[0] > '1':
+            self.mqtt_client = mqttClient.Client(mqttClient.CallbackAPIVersion.VERSION1, credentials['mqtt_clientid'])
+        else:
+            self.mqtt_client = mqttClient.Client(credentials['mqtt_clientid'])
         self.mqtt_client.on_connect = self.on_connect
         self.mqtt_client.on_connect_failed = self.on_connect_failed
         self.mqtt_client.on_disconnect = self.on_disconnect
