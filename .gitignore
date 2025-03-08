@@ -160,3 +160,5 @@ cython_debug/
 #.idea/
 /configuration/gateway.cer
 /.vs
+/configuration/local_credentials.json
+/configuration/gateway.bak
